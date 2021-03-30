@@ -8,6 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApplicationCore.ServiceInterfaces;
+using Infrastructure.Data;
+using Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace MovieShop.MVC
 {
@@ -24,6 +28,13 @@ namespace MovieShop.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<MovieShopDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("MovieShopDbConnection")));
+            //services.AddScoped<IMovieService, MovieService>();   // It will reuse the same instance within HTTP request
+            //services.AddScoped<IMovieService, MovieServiceTest>();
+            //services.AddSingleton<IMovieService, MovieService>();    // rarely used. it will create instance and reuse same instance throughout the application until application dies.
+            services.AddTransient<IMovieService, MovieService>();    // most corrupt. it will create instance each and every time. frequently used
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

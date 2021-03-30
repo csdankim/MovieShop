@@ -5,17 +5,20 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ApplicationCore.Models.Request;
+using ApplicationCore.ServiceInterfaces;
 using Infrastructure.Services;
 
 namespace MovieShop.MVC.Controllers
 {
     public class MoviesController : Controller
     {
-        private MovieService _movieService;
+        //private MovieService _movieService;
+        private readonly IMovieService _movieService;       // readonly -> to void tight coupling
 
-        public MoviesController()
+        public MoviesController(IMovieService movieService)
         {
-            _movieService = new MovieService();
+            //_movieService = new MovieService();
+            _movieService = movieService;
         }
         public IActionResult Index()
         {
