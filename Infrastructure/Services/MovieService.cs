@@ -5,16 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using ApplicationCore.Models.Request;
 using ApplicationCore.Models.Response;
+using ApplicationCore.RepositoryInterfaces;
 using ApplicationCore.ServiceInterfaces;
+using Infrastructure.Repositories;
 
 namespace Infrastructure.Services
 {
     public class MovieService : IMovieService
     {
-        // no of methods : depends on business requirement
-        public List<MovieCardResponseModel> Get30HighestGrossing()
+        private readonly IMovieRepository _movieRepository;
+
+        public MovieService(IMovieRepository movieRepository)
         {
-            var movies = new List<MovieCardResponseModel>
+            _movieRepository = movieRepository;
+        }
+
+        // no of methods : depends on business requirement
+        public async Task<List<MovieCardResponseModel>> Get30HighestGrossing()
+        {
+            /*var movies = new List<MovieCardResponseModel>
             {
                 new MovieCardResponseModel{Id = 1, Title = "Avengers: Infinity War"},
                 new MovieCardResponseModel {Id = 2, Title = "Avatar"},
@@ -24,7 +33,10 @@ namespace Infrastructure.Services
                 new MovieCardResponseModel {Id = 6, Title = "Avengers: Age of Ultron"},
                 new MovieCardResponseModel {Id = 7, Title = "Interstellar"},
                 new MovieCardResponseModel {Id = 8, Title = "Fight Club"}
-            };
+            };*/
+
+            var movies = await _movieRepository.GetTop30HighestGrossingMovies();
+            var result = new List<>()
 
             return movies;
         }

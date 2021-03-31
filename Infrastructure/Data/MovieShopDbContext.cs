@@ -18,11 +18,23 @@ namespace Infrastructure.Data
 
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Trailer> Trailers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Movie>(ConfigureMovie);
+            modelBuilder.Entity<Trailer>(ConfigureTrailer);
+            modelBuilder.Entity<Movie>().HasMany(m => m.Genres).WithMany(g => g.Movies)
+                .UsingEntity<Dictionary<string, object>>("MovieGenre",
+                    m => m.HasOne<Genre>().WithMany().HasForeignKey("GenreId"),
+                    g => g.HasOne<Movie>().WithMany().HasForeignKey("MovieId"));
         }
-
+        private void ConfigureTrailer(EntityTypeBuilder<Trailer> builder)
+        {
+            builder.ToTable("Trailer");
+            builder.HasKey(t => t.Id);
+            builder.Property(t => t.Name).HasMaxLength(2084);
+            builder.Property(t => t.TrailerUrl).HasMaxLength(2084);
+        }
         private void ConfigureMovie(EntityTypeBuilder<Movie> builder)
         {
             // we specify the rules for Movie Entity

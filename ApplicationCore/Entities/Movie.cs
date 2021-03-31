@@ -30,5 +30,7 @@ namespace ApplicationCore.Entities
 
 
         public decimal? Rating { get; set; }    // calculation UI purpose
+        public ICollection<Trailer> Trailers { get; set; }
+        public ICollection<Genre> Genres { get; set; }
     }
 }
