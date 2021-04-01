@@ -25,7 +25,7 @@ namespace Infrastructure.Repositories
             return entity;
         }
 
-        public async Task<IEnumerable<T>> ListAllAsync()
+        public virtual async Task<IEnumerable<T>> ListAllAsync()
         {
             //var test = _dbContext.Movies.Where(m => m.Id == 2).FirstOrDefaultAsync();
             //var testt = new List<MovieCardResponseModel>();
@@ -33,12 +33,12 @@ namespace Infrastructure.Repositories
             return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> filter)
+        public virtual async Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> filter)
         {
             return await _dbContext.Set<T>().Where(filter).ToListAsync();
         }
 
-        public async Task<int> GetCountAsync(Expression<Func<T, bool>> filter = null)
+        public virtual async Task<int> GetCountAsync(Expression<Func<T, bool>> filter = null)
         {
             if (filter != null)
             {
@@ -48,7 +48,7 @@ namespace Infrastructure.Repositories
             return await _dbContext.Set<T>().CountAsync();
         }
 
-        public async Task<bool> GetExistAsync(Expression<Func<T, bool>> filter = null)
+        public virtual async Task<bool> GetExistAsync(Expression<Func<T, bool>> filter = null)
         {
             if (filter == null)
             {
@@ -61,7 +61,7 @@ namespace Infrastructure.Repositories
              // input 2 --> true
         }
 
-        public async Task<T> AssAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
             //Movie - Id, title, revenue, budget, 55
             _dbContext.Set<T>().Add(entity);            // check video
@@ -69,7 +69,7 @@ namespace Infrastructure.Repositories
             return entity;
         }
 
-        public async Task<T> UpdateAsync(T entity)
+        public virtual async Task<T> UpdateAsync(T entity)
         {
             // Disconnected way of doing things
             //Movie - Id, title, revenue, budget, 55
@@ -79,7 +79,7 @@ namespace Infrastructure.Repositories
 
         }
 
-        public async Task DeleteAsync(T entity)
+        public virtual async Task DeleteAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();

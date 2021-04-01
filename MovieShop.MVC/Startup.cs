@@ -8,8 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApplicationCore.Entities;
+using ApplicationCore.RepositoryInterfaces;
 using ApplicationCore.ServiceInterfaces;
 using Infrastructure.Data;
+using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,7 +37,9 @@ namespace MovieShop.MVC
             //services.AddScoped<IMovieService, MovieServiceTest>();
             //services.AddSingleton<IMovieService, MovieService>();    // rarely used. it will create instance and reuse same instance throughout the application until application dies.
             services.AddTransient<IMovieService, MovieService>();    // most corrupt. it will create instance each and every time. frequently used
-
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IAsyncRepository<Genre>, EfRepository<Genre>>();
+            services.AddTransient<IMovieRepository, MovieRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

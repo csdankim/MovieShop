@@ -36,9 +36,16 @@ namespace Infrastructure.Services
             };*/
 
             var movies = await _movieRepository.GetTop30HighestGrossingMovies();
-            var result = new List<>()
+            var result = new List<MovieCardResponseModel>();
+            foreach (var movie in movies)
+            {
+                result.Add(new MovieCardResponseModel
+                {
+                    Id = movie.Id, Title = movie.Title, PosterUrl = movie.PosterUrl
+                });
+            }
 
-            return movies;
+            return result;
         }
 
         public void CreateMovie(MovieCreateRequestModel model)

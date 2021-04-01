@@ -1,0 +1,6 @@
+﻿@model IEnumerable<ApplicationCore.Models.Response.GenreModel>
+
+@foreach (var genre in Model) 
+{ 
+    <a class="dropdown-item" > @genre.Name </a>
+}

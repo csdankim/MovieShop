@@ -6,21 +6,28 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using ApplicationCore.ServiceInterfaces;
 
 namespace MovieShop.MVC.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IMovieService _movieService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IMovieService movieService)
+        {
+            _movieService = movieService;
+        }
+        /*public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-        }
+        }*/
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var movies = await _movieService.Get30HighestGrossing();
+            return View(movies);
         }
 
         public IActionResult Privacy()

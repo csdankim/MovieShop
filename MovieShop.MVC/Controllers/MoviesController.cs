@@ -20,7 +20,7 @@ namespace MovieShop.MVC.Controllers
             //_movieService = new MovieService();
             _movieService = movieService;
         }
-        public IActionResult Index()
+        /*public IActionResult Index()
         {
             // It will look for a View with name called Index (because the action method name is index)
             // return Index2, TestView
@@ -34,12 +34,24 @@ namespace MovieShop.MVC.Controllers
             var movies = _movieService.Get30HighestGrossing();
 
             return View(movies);
+        }*/
+
+        public async Task<IActionResult> Index()
+        {
+            var movies = await _movieService.Get30HighestGrossing();
+            return View(movies);
         }
 
         // we want to show blank page with all the inputs
         [HttpGet]
         public IActionResult Create()
         {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            // should call Movie Service to get the details of the Movie that includes Movie Details, Cast for that Movie, Rating for that Movie
             return View();
         }
 
