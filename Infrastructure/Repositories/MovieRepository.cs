@@ -44,6 +44,17 @@ namespace Infrastructure.Repositories
             return movie;
         }
 
+        public async Task<IEnumerable<Movie>> GetMoviesByGenre(int genreId, int pageSize=25, int page=1)
+        {
+            var movies = await _dbContext.Genres.Include(g => g.Movies).Where(g => g.Id == genreId)
+                .SelectMany(g => g.Movies).OrderByDescending(m => m.Revenue).Skip((page - 1) * pageSize).Take(pageSize)
+                .ToListAsync();
+
+            return movies;
+        }
+
+
+
         /*public override Task<IEnumerable<Movie>> ListAsync(Expression<Func<Movie, bool>> filter)
         {
             var movies = _dbContext.Movies.Where(m => m.Revenue > 100000).ToListAsync();  //30

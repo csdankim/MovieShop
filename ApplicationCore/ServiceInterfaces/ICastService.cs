@@ -6,6 +6,6 @@ namespace ApplicationCore.ServiceInterfaces
 {
     public interface ICastService
     {
-        Task<List<CastDetailResponseModel>> GetCastDetailsWithMovies(int id);
+        Task<IEnumerable<CastDetailResponseModel>> GetCastDetailsWithMovies(int id);
     }
 }

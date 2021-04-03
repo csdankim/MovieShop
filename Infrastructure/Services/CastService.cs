@@ -16,7 +16,7 @@ namespace Infrastructure.Services
         {
             _castRepository = castRepository;
         }
-        public async Task<List<CastDetailResponseModel>> GetCastDetailsWithMovies(int id)
+        public async Task<IEnumerable<CastDetailResponseModel>> GetCastDetailsWithMovies(int id)
         {
             var cast = await _castRepository.GetByIdAsync(id);
             var castMovies = new List<MovieResponseModel>();

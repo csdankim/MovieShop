@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,6 +54,79 @@ namespace Infrastructure.Services
             //take model and convert it to Movie Entity and send it to repository
             //if repository saves successfully return true/id:2
 
+        }
+
+        public async Task<IEnumerable<MovieDetailResponseModel>> GetMovieAsync(int id)
+        {
+            var movie = await _movieRepository.GetByIdAsync(id);
+            
+            var favoriteCount = await _movieRepository.GetCountAsync(f=>f.Id == id);
+            
+            var castList = new List<MovieDetailResponseModel.CastResponseModel>();
+            foreach (var cast in movie.MovieCasts)
+            {
+                castList.Add(new MovieDetailResponseModel.CastResponseModel
+                {
+                    Id = cast.CastId,
+                    Gender = cast.Cast.Gender,
+                    Name = cast.Cast.Name,
+                    ProfilePath = cast.Cast.ProfilePath,
+                    TmdbUrl = cast.Cast.TmdbUrl,
+                    Character = cast.Character
+                });
+            }
+
+            var genreList = new List<GenreModel>();
+            foreach (var genre in movie.Genres)
+            {
+                genreList.Add(new GenreModel
+                {
+                    Id = genre.Id,
+                    Name = genre.Name
+                });
+            }
+
+            var response = new List<MovieDetailResponseModel>();
+            response.Add(new MovieDetailResponseModel
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                PosterUrl = movie.PosterUrl,
+                BackdropUrl = movie.BackdropUrl,
+                Rating = movie.Rating,
+                Overview = movie.Overview,
+                Tagline = movie.Tagline,
+                Budget = movie.Budget,
+                Revenue = movie.Revenue,
+                ImdbUrl = movie.ImdbUrl,
+                TmdbUrl = movie.TmdbUrl,
+                ReleaseDate = movie.ReleaseDate,
+                RunTime = movie.RunTime,
+                Price = movie.Price,
+                FavoritesCount = favoriteCount,
+                Casts = castList,
+                Genres = genreList
+            });
+
+            return response;
+        }
+
+        public async Task<IEnumerable<MovieResponseModel>> GetMoviesByGenre(int genreId, int pageSize = 25, int page = 1)
+        {
+            var movies = await _movieRepository.GetMoviesByGenre(genreId, pageSize, page);
+            var response = new List<MovieResponseModel>();
+            foreach (var movie in movies)
+            {
+                response.Add(new MovieResponseModel
+                {
+                    Id = movie.Id,
+                    Title = movie.Title,
+                    PosterUrl = movie.PosterUrl,
+                    ReleaseDate = movie.ReleaseDate
+                });
+            }
+
+            return response;
         }
     }
 

@@ -9,6 +9,7 @@ namespace ApplicationCore.ServiceInterfaces
     {
         Task<List<MovieCardResponseModel>> Get30HighestGrossing();
         void CreateMovie(MovieCreateRequestModel model);
-        Task<IEnumerable<ReviewMovieResponseModel>> GetReviewsForMovie(int id);
+        Task<IEnumerable<MovieDetailResponseModel>> GetMovieAsync(int id);
+        Task<IEnumerable<MovieResponseModel>> GetMoviesByGenre(int genreId, int pageSize = 25, int page = 1);
     }
 }
