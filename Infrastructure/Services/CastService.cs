@@ -16,7 +16,7 @@ namespace Infrastructure.Services
         {
             _castRepository = castRepository;
         }
-        public async Task<IEnumerable<CastDetailResponseModel>> GetCastDetailsWithMovies(int id)
+        public async Task<CastDetailResponseModel> GetCastDetailsWithMovies(int id)
         {
             var cast = await _castRepository.GetByIdAsync(id);
             var castMovies = new List<MovieResponseModel>();
@@ -30,18 +30,16 @@ namespace Infrastructure.Services
                 });
             }
 
-            var result = new List<CastDetailResponseModel>();
-            result.Add(new CastDetailResponseModel
-            {
-                Id = cast.Id,
-                Name = cast.Name,
-                Gender = cast.Gender,
-                TmdbUrl = cast.TmdbUrl,
-                ProfilePath = cast.ProfilePath,
-                Movies = castMovies
-            });
+            CastDetailResponseModel castDetailResponseModel = new CastDetailResponseModel();
+            var response = castDetailResponseModel;
+            response.Id = cast.Id;
+            response.Name = cast.Name;
+            response.Gender = cast.Gender;
+            response.TmdbUrl = cast.TmdbUrl;
+            response.ProfilePath = cast.ProfilePath;
+            response.Movies = castMovies;
 
-            return result;
+            return response;
         }
     }
 }

@@ -56,7 +56,7 @@ namespace Infrastructure.Services
 
         }
 
-        public async Task<IEnumerable<MovieDetailResponseModel>> GetMovieAsync(int id)
+        public async Task<MovieDetailResponseModel> GetMovieAsync(int id)
         {
             var movie = await _movieRepository.GetByIdAsync(id);
             
@@ -86,27 +86,25 @@ namespace Infrastructure.Services
                 });
             }
 
-            var response = new List<MovieDetailResponseModel>();
-            response.Add(new MovieDetailResponseModel
-            {
-                Id = movie.Id,
-                Title = movie.Title,
-                PosterUrl = movie.PosterUrl,
-                BackdropUrl = movie.BackdropUrl,
-                Rating = movie.Rating,
-                Overview = movie.Overview,
-                Tagline = movie.Tagline,
-                Budget = movie.Budget,
-                Revenue = movie.Revenue,
-                ImdbUrl = movie.ImdbUrl,
-                TmdbUrl = movie.TmdbUrl,
-                ReleaseDate = movie.ReleaseDate,
-                RunTime = movie.RunTime,
-                Price = movie.Price,
-                FavoritesCount = favoriteCount,
-                Casts = castList,
-                Genres = genreList
-            });
+            MovieDetailResponseModel movieDetailResponseModel = new MovieDetailResponseModel();
+            var response = movieDetailResponseModel;
+            response.Id = movie.Id;
+            response.Title = movie.Title;
+            response.PosterUrl = movie.PosterUrl;
+            response.BackdropUrl = movie.BackdropUrl;
+            response.Rating = movie.Rating;
+            response.Overview = movie.Overview;
+            response.Tagline = movie.Tagline;
+            response.Budget = movie.Budget;
+            response.Revenue = movie.Revenue;
+            response.ImdbUrl = movie.ImdbUrl;
+            response.TmdbUrl = movie.TmdbUrl;
+            response.ReleaseDate = movie.ReleaseDate;
+            response.RunTime = movie.RunTime;
+            response.Price = movie.Price;
+            response.FavoritesCount = favoriteCount;
+            response.Casts = castList;
+            response.Genres = genreList;
 
             return response;
         }
