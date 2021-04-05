@@ -38,8 +38,12 @@ namespace MovieShop.MVC
             //services.AddSingleton<IMovieService, MovieService>();    // rarely used. it will create instance and reuse same instance throughout the application until application dies.
             services.AddTransient<IMovieService, MovieService>();    // most corrupt. it will create instance each and every time. frequently used
             services.AddTransient<IMovieRepository, MovieRepository>();
+
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IAsyncRepository<Genre>, EfRepository<Genre>>();
+
+            services.AddScoped<ICastService, CastService>();
+            services.AddScoped<IAsyncRepository<Cast>, CastRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

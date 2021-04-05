@@ -44,7 +44,7 @@ namespace Infrastructure.Repositories
             return movie;
         }
 
-        public async Task<IEnumerable<Movie>> GetMoviesByGenre(int genreId, int pageSize=25, int page=1)
+        public async Task<IEnumerable<Movie>> GetMoviesByGenre(int genreId, int pageSize = 25, int page = 1)
         {
             var movies = await _dbContext.Genres.Include(g => g.Movies).Where(g => g.Id == genreId)
                 .SelectMany(g => g.Movies).OrderByDescending(m => m.Revenue).Skip((page - 1) * pageSize).Take(pageSize)
@@ -52,6 +52,7 @@ namespace Infrastructure.Repositories
 
             return movies;
         }
+
 
 
 

@@ -48,20 +48,7 @@ namespace MovieShop.MVC.Controllers
         {
             return View();
         }
-        [HttpGet]
-        public async Task<IActionResult> Details(int id)
-        {
-            // should call Movie Service to get the details of the Movie that includes Movie Details, Cast for that Movie, Rating for that Movie
-            var movie = await _movieService.GetMovieAsync(id);
-            return View(movie);
-        }
 
-        public async Task<IActionResult> Genre(int genreId, int pageSize = 25, int page = 1)
-        {
-            var movies = await _movieService.GetMoviesByGenre(genreId, pageSize, page);
-
-            return View(movies);
-        }
         // receive Movie information from View then submitted
         // interview question: model binding: map parameters
         [HttpPost]
@@ -69,6 +56,20 @@ namespace MovieShop.MVC.Controllers
         {
             _movieService.CreateMovie(model);
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            // should call Movie Service to get the details of the Movie that includes Movie Details, Cast for that Movie, Rating for that Movie
+            var movie = await _movieService.GetMovieAsync(id);
+            return View(movie);
+        }
+
+        public async Task<IActionResult> Genre(int genreId, int pageSize=25, int page=1)
+        {
+            var movies = await _movieService.GetMoviesByGenre(genreId, pageSize, page);
+
+            return View(movies);
         }
     }
 }
