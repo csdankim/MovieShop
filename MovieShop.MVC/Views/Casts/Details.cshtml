@@ -43,11 +43,7 @@
                 @foreach (var movie in Model?.Movies)
                 {
                     <div class="col-6 col-lg-3 col-sm-4 col-xl-2">
-                        <div class="card mb-4 shadow bg-light">
-                            <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">
-                                <img src="@movie.PosterUrl" class="img-fluid" alt="@movie.Title"/>
-                            </a>
-                        </div>
+                        @await Html.PartialAsync("_MovieResponse", movie)
                     </div>
                 }
             </div>

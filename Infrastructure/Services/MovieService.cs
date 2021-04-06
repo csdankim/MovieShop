@@ -109,9 +109,9 @@ namespace Infrastructure.Services
             return response;
         }
 
-        public async Task<IEnumerable<MovieResponseModel>> GetMoviesByGenre(int genreId)
+        public async Task<IEnumerable<MovieResponseModel>> GetMoviesByGenre(int genreId, int pageSize = 10, int page = 1)
         {
-            var movies = await _movieRepository.GetMoviesByGenre(genreId);
+            var movies = await _movieRepository.GetMoviesByGenre(genreId, pageSize, page);
             var response = new List<MovieResponseModel>();
             foreach (var movie in movies)
             {

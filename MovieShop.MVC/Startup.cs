@@ -37,7 +37,7 @@ namespace MovieShop.MVC
             //services.AddScoped<IMovieService, MovieServiceTest>();
             //services.AddSingleton<IMovieService, MovieService>();    // rarely used. it will create instance and reuse same instance throughout the application until application dies.
             services.AddTransient<IMovieService, MovieService>();    // most corrupt. it will create instance each and every time. frequently used
-            services.AddTransient<IMovieRepository, MovieRepository>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
 
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IAsyncRepository<Genre>, EfRepository<Genre>>();

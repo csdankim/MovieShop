@@ -1,21 +1,18 @@
 ﻿@model IEnumerable<ApplicationCore.Models.Response.MovieResponseModel>
 
-@*@{
+@{
     ViewBag.Title = "Movies By Genre";
-    Layout = "_Layout";
-}*@
+}
+
+@* To do: bring genre name for genre Id as a title of page*@
 
 <div class="rounded">
     <div class="container-fluid bg-light">
         <div class="row">
             @foreach (var movie in Model)
             {
-                <div class="col-6 col-lg-3 col-md-4 col-sm-5 col-xl-2">
-                    <div class="card mb-4 shadow bg-light">
-                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">
-                            <img src="@movie.PosterUrl" class="img-fluid" alt="@movie.Title" />
-                        </a>
-                    </div>
+                <div class="col-6 col-lg-3 col-sm-4 col-xl-2">
+                    @await Html.PartialAsync("_MovieResponse", movie)
                 </div>
             }
         </div>
