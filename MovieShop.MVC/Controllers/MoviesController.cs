@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ApplicationCore.Models.Request;
+using ApplicationCore.Models.Response;
 using ApplicationCore.ServiceInterfaces;
 using Infrastructure.Services;
 
@@ -65,11 +66,11 @@ namespace MovieShop.MVC.Controllers
             return View(movie);
         }
 
-        public async Task<IActionResult> Genre(int genreId, int pageSize=25, int page=1)
+        public async Task<IActionResult> Genre(int genreId)
         {
-            var movies = await _movieService.GetMoviesByGenre(genreId, pageSize, page);
+            var movies = await _movieService.GetMoviesByGenre(genreId);
 
-            return View(movies);
+            return View("Genres", movies);
         }
     }
 }
