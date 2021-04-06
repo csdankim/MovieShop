@@ -33,6 +33,13 @@ namespace Infrastructure.Services
 
             var salt = CreateSalt();
 
+            /*var saltExistsDb = _userRepository.SaltExists(salt);
+
+            if (saltExistsDb)
+            {
+                // continue 
+            }*/
+
             var hashedPassword = HashPassword(registerRequestModel.Password, salt);
 
             // save user Entity to database

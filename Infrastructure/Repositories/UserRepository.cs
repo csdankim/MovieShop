@@ -17,5 +17,16 @@ namespace Infrastructure.Repositories
             var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
             return user;
         }
+
+        public async Task<bool> SaltExists(string salt)
+        {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Salt == salt);
+            if (user != null)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

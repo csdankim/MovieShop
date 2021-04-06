@@ -5,15 +5,16 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using ApplicationCore.Models.Request;
+using ApplicationCore.ServiceInterfaces;
 using Infrastructure.Services;
 
 namespace MovieShop.MVC.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
-        public AccountController(UserService userService)
+        public AccountController(IUserService userService)
         {
             _userService = userService;
         }
