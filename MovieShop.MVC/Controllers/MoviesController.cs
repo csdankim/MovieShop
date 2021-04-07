@@ -66,9 +66,9 @@ namespace MovieShop.MVC.Controllers
             return View(movie);
         }
 
-        public async Task<IActionResult> Genre(int Id, int pageSize = 10, int page = 1)
+        public async Task<IActionResult> Genre(int id, int pageSize = 10, int page = 1)
         {
-            var movies = await _movieService.GetMoviesByGenre(Id, pageSize, page);
+            var movies = await _movieService.GetMoviesByGenre(id, pageSize, page);
 
             return View("Genres", movies);
         }

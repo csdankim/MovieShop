@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +22,7 @@ namespace ApplicationCore.Entities
         public DateTime? LastLoginDateTime { get; set; }
         public bool? IsLocked { get; set; }
         public int? AccessFailedCount { get; set; }
+        public string ProfilePictureUrl { get; set; }
 
         public ICollection<Role> Roles { get; set; }
         public ICollection<Purchase> Purchases { get; set; }

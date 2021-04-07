@@ -76,7 +76,7 @@ namespace Infrastructure.Services
 
         private string HashPassword(string password, string salt)
         {
-            var hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+            var hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(       // Pbkdf2, Argon2
                 password: password,
                 salt: Convert.FromBase64String(salt),
                 prf: KeyDerivationPrf.HMACSHA512,
@@ -87,7 +87,25 @@ namespace Infrastructure.Services
 
         public async Task<LoginResponseModel> ValidateUser(string email, string password)
         {
-            throw new System.NotImplementedException();
+            // we should go to database and get the record by email
+            var dbUser = await _userRepository.GetUserByEmail(email);
+            if (dbUser == null)
+            {
+                return null;
+            }
+
+            var hashPassword = HashPassword(password, dbUser.Salt);
+            if (hashPassword == dbUser.HashedPassword)
+            {
+                // user entered correct password
+                var loginUserResponse = new LoginResponseModel
+                {
+                    Id = dbUser.Id, FirstName = dbUser.FirstName, LastName = dbUser.LastName, Email = dbUser.Email
+                };
+                return loginUserResponse;
+            }
+
+            return null;
         }
     }
 }
