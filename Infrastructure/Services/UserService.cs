@@ -5,6 +5,7 @@ using ApplicationCore.Models.Response;
 using ApplicationCore.ServiceInterfaces;
 using System.Threading.Tasks;
 using ApplicationCore.Entities;
+using ApplicationCore.Exceptions;
 using ApplicationCore.RepositoryInterfaces;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
@@ -25,7 +26,8 @@ namespace Infrastructure.Services
             // user exists in database
             if (dbUser != null)
             {
-                 throw new Exception("user already exists, please login");
+                throw new ConflictException("user already exists, please login");
+                //throw new Exception("user already exists, please login");
             }
 
             // continue with our hashing

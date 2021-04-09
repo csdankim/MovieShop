@@ -76,8 +76,8 @@ namespace MovieShop.MVC.Controllers
                 new Claim(ClaimTypes.GivenName, user.FirstName),
                 new Claim(ClaimTypes.Surname, user.LastName),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email), 
-                new Claim("mywebsite","antra.com")
+                new Claim(ClaimTypes.Email, user.Email)
+                //new Claim("mywebsite","antra.com")
             };
 
             // Identity
@@ -85,9 +85,10 @@ namespace MovieShop.MVC.Controllers
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             // creating the Cooke
-
+            //Response.Cookies.Append("Test", "TestInfo");
+            // Where encryption happening  -> SignInAsync
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity));
+                new ClaimsPrincipal(claimsIdentity));    
 
 
             return LocalRedirect(returnUrl);
