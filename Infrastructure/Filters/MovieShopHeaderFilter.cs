@@ -25,11 +25,12 @@ namespace Infrastructure.Filters
             var datetime = DateTime.UtcNow.ToLongTimeString();
             var isAuthenticated = _currentUserService.IsAuthenticated.ToString();
             var name = _currentUserService.FullName;
+            var userIpAddress = _currentUserService.RemoteIpAddress;
 
             // log this into text files
             // System.IO
             // Serilog, Nlog, Log4net
-            var message = $"{_currentUserService.RemoteIpAddress} {email}, {name} visited at {datetime}, and {name} is {isAuthenticated} authenticated";
+            var message = $"{userIpAddress} {email}, {name} visited at {datetime}, and {name} is {isAuthenticated} authenticated";
             _logger.LogInformation(message);
             _logger.LogCritical(message);
         }

@@ -13,7 +13,7 @@ namespace ApplicationCore.Helpers
         public string ExceptionStackTree { get; set; }
         public string InnerExceptionMessage { get; set; }
         public string UserID { get; set; }
-        public IEnumerator<Claim> Email { get; set; }
+        public string Email { get; set; }
         public string FullName  { get; set; }
         public bool IsAuthorized { get; set; }
         public DateTime ExceptionDateTime { get; set; }

@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using ApplicationCore.Entities;
 using ApplicationCore.Exceptions;
 using ApplicationCore.Helpers;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
@@ -44,11 +47,24 @@ namespace MovieShop.MVC.Middlewares
             // get all the information you wanna log and use Serilog or NLog to log exceptions to text/json files
             _logger.LogError("Starting Logging for exception");
 
+
+            ClaimsPrincipal principal = httpContext.User;
+
+            var claimItems = new List<string>();
+            foreach (Claim claim in principal.Claims)
+            {
+                claimItems.Add(claim.Value);
+            }
+
             var errorModel = new ErrorReponseModel
             {
                 ExceptionMessage = ex.Message,
                 ExceptionStackTree = ex.StackTrace,
-                InnerExceptionMessage = ex.InnerException?.Message
+                InnerExceptionMessage = ex.InnerException?.Message,
+                FullName = claimItems[0] + " " + claimItems[1],
+                UserID = claimItems[2],
+                Email = claimItems[3],
+                ExceptionDateTime = DateTime.UtcNow
             };
 
             switch (ex)
@@ -72,8 +88,9 @@ namespace MovieShop.MVC.Middlewares
 
             // seriLog to log errorModel along with 
             // send email also
-            var message = errorModel.ExceptionMessage + ": " + errorModel.UserID + " " + errorModel.FullName + " " +
-                          errorModel.Email + " " + errorModel.IsAuthorized;
+            var message =
+                $"Exception Code: {httpContext.Response.StatusCode}, {errorModel.ExceptionMessage}, {errorModel.ExceptionStackTree}, {errorModel.InnerExceptionMessage}, {errorModel.FullName}, {errorModel.UserID}, {errorModel.Email} at {errorModel.ExceptionDateTime.ToLongDateString()}";
+            
             _logger.LogInformation(message);
             _logger.LogCritical(message);
 
