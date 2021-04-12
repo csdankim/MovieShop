@@ -35,7 +35,7 @@ namespace MovieShop.MVC.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogError("caught exception {dateTime", DateTime.UtcNow);
+                _logger.LogError("caught exception {dateTime}", DateTime.UtcNow);
             }
 
             var movies = await _movieService.Get30HighestGrossing();

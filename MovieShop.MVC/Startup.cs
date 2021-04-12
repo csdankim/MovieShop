@@ -18,6 +18,7 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MovieShop.MVC.Middlewares;
+using Serilog;
 
 namespace MovieShop.MVC
 {
@@ -84,6 +85,9 @@ namespace MovieShop.MVC
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            // Serilog
+            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 
