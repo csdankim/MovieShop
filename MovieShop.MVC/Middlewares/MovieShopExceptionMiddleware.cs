@@ -72,6 +72,10 @@ namespace MovieShop.MVC.Middlewares
 
             // seriLog to log errorModel along with 
             // send email also
+            var message = errorModel.ExceptionMessage + ": " + errorModel.UserID + " " + errorModel.FullName + " " +
+                          errorModel.Email + " " + errorModel.IsAuthorized;
+            _logger.LogInformation(message);
+            _logger.LogCritical(message);
 
             // redirect to error page
             httpContext.Response.Redirect("/Home/Error");
