@@ -55,6 +55,7 @@ namespace MovieShop.MVC.Middlewares
             {
                 claimItems.Add(claim.Value);
             }
+            // claimItems = [FirstName, LastName, UserId, Email]
 
             var errorModel = new ErrorReponseModel
             {
