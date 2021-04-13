@@ -47,7 +47,6 @@ namespace MovieShop.MVC.Middlewares
             // get all the information you wanna log and use Serilog or NLog to log exceptions to text/json files
             _logger.LogError("Starting Logging for exception");
 
-
             ClaimsPrincipal principal = httpContext.User;
 
             var claimItems = new List<string>();
