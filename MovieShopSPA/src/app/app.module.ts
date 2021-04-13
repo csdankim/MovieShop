@@ -9,6 +9,7 @@ import { FooterComponent } from './core/layout/footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
+// decorators == C# attributes
 @NgModule({
   declarations: [
     AppComponent,
