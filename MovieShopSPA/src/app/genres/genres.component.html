@@ -1,5 +1,5 @@
-<ul>
+<ul class="list-unstyled p-2">
   <li *ngFor="let genre of genres">
-    <a> {{ genre.name }} </a>
+    <a [routerLink]="['genres/movies/', genre.id]"> {{ genre.name }} </a>
   </li>
 </ul>

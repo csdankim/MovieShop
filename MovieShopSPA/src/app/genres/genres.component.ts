@@ -10,7 +10,8 @@ import { Genre } from '../shared/models/genre';
 export class GenresComponent implements OnInit {
 
   // this property will be available to view so that it can use to display data
-  genres: Genre[] = [];
+  // genres: Genre[] = [];
+  genres: Genre[] | undefined;
 
   constructor(private genreService: GenreService) { }
 
@@ -24,7 +25,9 @@ export class GenresComponent implements OnInit {
     this.genreService.getAllGenres().subscribe(
       g=>{
         this.genres=g;
-        console.log('genres');
+        // console.log('genres');
+        // console.log(this.genres);
+        console.table(this.genres);
       }
     )
   }
