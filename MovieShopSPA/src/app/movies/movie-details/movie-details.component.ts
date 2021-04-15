@@ -24,17 +24,24 @@ export class MovieDetailsComponent implements OnInit {
   // reference2: https://stackoverflow.com/questions/40275862/how-to-get-parameter-on-angular2-route-in-angular-way
   ngOnInit() {
     console.log('inside ngOnInit method');
-    this.route.paramMap.subscribe(
-      params => {
-        this.id = +params.getAll('id');   // when get(), it causes Object is possibly 'null' error. why??
-        this.movieService.getMovieAsync(this.id).subscribe(
-          m => {
-            this.movie = m;
-            console.log(this.movie);
-          }
-        )
+    const id = +this.route.snapshot.params['id'];
+    this.movieService.getMovieAsync(id).subscribe(
+      m => {
+        this.movie = m;
+        console.log(this.movie);
       }
     )
+    // this.route.paramMap.subscribe(
+    //   params => {
+    //     this.id = +params.getAll('id');   // when get(), it causes Object is possibly 'null' error. why??
+    //     this.movieService.getMovieAsync(this.id).subscribe(
+    //       m => {
+    //         this.movie = m;
+    //         console.log(this.movie);
+    //       }
+    //     )
+    //   }
+    // )
 
   }
   ngOnDestroy() {

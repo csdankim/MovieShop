@@ -43,7 +43,7 @@
           <h4>
             <span class="badge badge-warning">
               <!-- @Model.Rating?.ToString("0.00") -->
-              {{ movie?.rating }}
+              {{ movie?.rating | number : '1.2-2' }}
             </span>
           </h4>
         </div>
