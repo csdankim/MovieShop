@@ -1,22 +1,49 @@
 <div class="container">
-  <form>
+  
+  
+
+  <form (ngSubmit)="login()" #loginForm="ngForm" >
+    
+    <div *ngIf="invalidLogin" class="alert alert-danger">
+      Invalid Email/Password
+    </div>
+    
     <div class="form-group">
       <label for="email">Email address</label>
       <input
         type="email"
         class="form-control"
         id="email"
-        aria-describedby="emailHelp"
+        aria-describedby="emailHelp" name="email" [(ngModel)]="userLogin.email"
       />
       <small id="emailHelp" class="form-text text-muted"
         >We'll never share your email with anyone else.</small
       >
     </div>
     <div class="form-group">
-      <label for="Password">Password</label>
-      <input type="password" class="form-control" id="Password" />
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password" [(ngModel)]="userLogin.password"/>
     </div>
 
     <input type="submit" value="Submit" class="btn btn-primary">
   </form>
+
+  <!-- <div>
+    <span>
+      Observing Two way binding value
+      {{twowayInfo}}
+    </span>
+  </div> -->
 </div>
+
+
+<!-- 
+  ngModel 
+  
+  install formModule in app.module
+  create a model that you wanna use for your form
+  always make sure you have name attribute for your form input elements
+  [(ngModel)]="userLogin.email" Banana in the box
+
+  Template variables -> #loginForm
+-->

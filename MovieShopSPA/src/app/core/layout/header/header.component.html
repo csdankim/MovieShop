@@ -43,6 +43,14 @@
           >Disabled</a
         >
       </li> -->
+
+      <li class="nav-item" *ngIf="!isAuthenticated">
+        <a class="btn btn-outline-primary"  [routerLink]="['/login']" > Login </a>
+      </li>
+      <li class="nav-item" *ngIf="!isAuthenticated">
+        <a class="btn btn-outline-primary"  [routerLink]="['/register']" > Register </a>
+      </li>
+
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input
