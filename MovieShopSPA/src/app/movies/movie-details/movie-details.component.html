@@ -27,11 +27,11 @@
                     } -->
           {{ movie?.releaseDate | date: "yyyy" }}
         </div>
-        <div class="col-8">
+        <div class="col-8" >
           <a
             class="badge badge-pill badge-dark ml-1"
             *ngFor="let genre of movie?.genres"
-            [routerLink]="['genres/movies', genre.id]"
+            [routerLink]="['/genres/movies/', genre?.id]"
           >
             {{ genre.name }}
           </a>
@@ -145,7 +145,7 @@
             />
           </td>
           <td>
-            {{ cast?.name }}
+            <a [routerLink]="['/casts/', cast?.id]">  {{ cast?.name }} </a>
           </td>
           <td>{{ cast.character }}</td>
         </tr>

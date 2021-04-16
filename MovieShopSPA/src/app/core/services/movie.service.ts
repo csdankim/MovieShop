@@ -25,4 +25,8 @@ export class MovieService {
 
   }
 
+  getMoviesByGenre(genreId: number): Observable<MovieDetail[]> {
+    return this.apiService.getAll(`${'movies/genre/'}${genreId}`);
+  }
+
 }

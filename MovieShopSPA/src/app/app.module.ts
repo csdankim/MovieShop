@@ -12,6 +12,9 @@ import { MovieCardComponent } from './shared/components/movie-card/movie-card.co
 import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
 import { MovieCardListComponent } from './movies/movie-card-list/movie-card-list.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { CastsComponent } from './casts/casts.component';
 
 // decorators == C# attributes
 @NgModule({
@@ -23,7 +26,10 @@ import { HomeComponent } from './home/home.component';
     MovieCardComponent,
     MovieDetailsComponent,
     MovieCardListComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent,
+    CastsComponent
   ],
   imports: [
     BrowserModule,

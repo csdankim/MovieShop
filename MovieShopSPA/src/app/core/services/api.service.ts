@@ -24,4 +24,10 @@ export class ApiService {
       map(resp => resp as any)
     );
   }
+
+  create(path: string, resource: any, options?: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}${path}`, resource).pipe(
+      map(response => response)
+    );
+  }
 }
