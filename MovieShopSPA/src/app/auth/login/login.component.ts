@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     email: '', password: ''
   };
 
-  invalidLogin: boolean=false;
+  invalidLogin: boolean = false;
 
   constructor(private authService: AuthenticationService, private route: Router) { }
 
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       (response) => {
         if (response) {
           this.route.navigate(['/'])
-        }else{
+        } else {
           this.invalidLogin = true;
         }
       }

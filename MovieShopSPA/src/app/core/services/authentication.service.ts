@@ -53,17 +53,17 @@ export class AuthenticationService {
     // also check the token is not expired
     const token = this.jwtStorageService.getToken();
 
-    if(token !=null) {
+    if (token != null) {
       const tokenExpired = new JwtHelperService().isTokenExpired(token);
       if (tokenExpired || !token)
         return null;
-  
+
       const decodedToken = new JwtHelperService().decodeToken(token);
-  
+
       this.user = decodedToken;
       return this.user;
     }
-    
+
     return null;
   }
 
