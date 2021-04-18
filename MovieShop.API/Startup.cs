@@ -16,12 +16,15 @@ using ApplicationCore.Entities;
 using ApplicationCore.RepositoryInterfaces;
 using ApplicationCore.ServiceInterfaces;
 using Infrastructure.Data;
+using Infrastructure.Filters;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MovieShop.API.Middlewares;
+using Serilog;
 
 namespace MovieShop.API
 {
@@ -38,7 +41,10 @@ namespace MovieShop.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllersWithViews(
+                options => options.Filters.Add(typeof(MovieShopHeaderFilter))
+            );
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieShop.API", Version = "v1" });
@@ -92,7 +98,8 @@ namespace MovieShop.API
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseMovieShopAPIExceptionMiddleware();
+                //app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieShop.API v1"));
             }
@@ -103,6 +110,9 @@ namespace MovieShop.API
             });
 
             app.UseHttpsRedirection();
+
+            // Serilog
+            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 
