@@ -47,7 +47,7 @@ namespace MovieShop.API.Controllers
             var movie = await _movieService.GetMovieAsync(id);
             if (movie==null)
             {
-                return NotFound("We did not find any movies");
+                return NotFound("We did not find any movie");
             }
             return Ok(movie);
         }

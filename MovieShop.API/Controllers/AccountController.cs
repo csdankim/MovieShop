@@ -14,10 +14,12 @@ namespace MovieShop.API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IJwtService _jwtService;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, IJwtService jwtService)
         {
             _userService = userService;
+            _jwtService = jwtService;
         }
 
         [HttpPost]
@@ -36,13 +38,15 @@ namespace MovieShop.API.Controllers
         [Route("login")]
         public async Task<IActionResult> LoginUser(LoginRequestModel model)
         {
-            if (!ModelState.IsValid)
+            var loginUser = await _userService.ValidateUser(model.Email, model.Password);
+            if (User == null)
             {
-                return BadRequest("Please check data");
+                return Unauthorized();
             }
 
-            var loginUser = await _userService.ValidateUser(model.Email, model.Password);
-            return Ok(loginUser);
+            var jwtToken = _jwtService.GenerateToken(loginUser);
+            // generate a JWT token and send it to Client
+            return Ok(new {token = jwtToken});
         }
 
         /*[HttpGet]

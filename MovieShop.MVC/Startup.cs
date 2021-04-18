@@ -57,15 +57,15 @@ namespace MovieShop.MVC
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 
+            services.AddHttpContextAccessor();
+            services.AddMemoryCache();
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.Cookie.Name = "MovieShopAuthCookie";
                 options.ExpireTimeSpan = TimeSpan.FromHours(2);
-                options.LoginPath = "/Account/login";
+                options.LoginPath = "/Account/Login";
             });
-
-            services.AddHttpContextAccessor();
-            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
