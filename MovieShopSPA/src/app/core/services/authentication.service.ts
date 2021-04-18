@@ -6,6 +6,9 @@ import { User } from 'src/app/shared/models/user';
 import { ApiService } from './api.service';
 import { JwtStorageService } from './jwt-storage.service';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +24,7 @@ export class AuthenticationService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
-  constructor(private apiService: ApiService, private jwtStorageService: JwtStorageService) { }
+  constructor(private apiService: ApiService, private jwtStorageService: JwtStorageService, protected http: HttpClient) { }
 
   login(userLogin: Login): Observable<boolean> {
     //take un/pw from login component and post it to API
@@ -81,4 +84,9 @@ export class AuthenticationService {
     }
 
   }
+
+  register(user: User) {
+    return this.http.post(`${environment.apiUrl}Account`, user);
+  }
+
 }

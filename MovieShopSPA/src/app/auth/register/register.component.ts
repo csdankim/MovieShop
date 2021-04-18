@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -10,8 +13,9 @@ export class RegisterComponent implements OnInit {
 
   submitted = false;
   registerForm!: FormGroup;
+  loading = false;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private authService: AuthenticationService, private route: Router) { }
 
   get f() {
     return this.registerForm.controls;
@@ -34,9 +38,18 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     console.log(this.registerForm);
     this.submitted = true;
+    console.log(this.registerForm.invalid);
     if (this.registerForm.invalid) {
       return;
     }
+
+    this.loading = true;
+    this.authService.register(this.registerForm.value).subscribe(response => {
+      this.route.navigate(['/']);
+    },
+    error => {
+      this.loading = false;
+    });
   }
 
 }
