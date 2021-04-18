@@ -11,16 +11,16 @@ export class ApiService {
 
   constructor(protected http: HttpClient) { }
 
-  getAll(path: string) : Observable<any[]> {
-    
+  getAll(path: string): Observable<any[]> {
+
     // https://localhost:44377/api/Genres
     return this.http.get(`${environment.apiUrl}${path}`).pipe(
-      map( resp => resp as any[])
+      map(resp => resp as any[])
     );
   }
 
   getById(path: string, id?: number): Observable<any> {
-    return this.http.get(`${environment.apiUrl}${path}`+'/'+id).pipe(
+    return this.http.get(`${environment.apiUrl}${path}` + '/' + id).pipe(
       map(resp => resp as any)
     );
   }
@@ -30,5 +30,5 @@ export class ApiService {
       map(response => response)
     );
   }
-  
+
 }
