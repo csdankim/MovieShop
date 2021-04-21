@@ -32,7 +32,6 @@ namespace Infrastructure.Filters
             // Serilog, Nlog, Log4net
             var message = $"{userIpAddress} {email}, {name} visited at {datetime}, and {name} is {isAuthenticated} authenticated";
             _logger.LogInformation(message);
-            _logger.LogCritical(message);
         }
 
         public void OnActionExecuted(ActionExecutedContext context)

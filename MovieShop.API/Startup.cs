@@ -21,6 +21,8 @@ using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MovieShop.API.Middlewares;
@@ -100,6 +102,16 @@ namespace MovieShop.API
             {
                 app.UseMovieShopAPIExceptionMiddleware();
                 //app.UseDeveloperExceptionPage();
+
+                /*// using built-in middleware
+                // reference: https://stackoverflow.com/questions/38630076/asp-net-core-web-api-exception-handling
+                app.UseExceptionHandler(a => a.Run(async context =>
+                {
+                    var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+                    var exception = exceptionHandlerPathFeature.Error;
+
+                    await context.Response.WriteAsJsonAsync(new { error = exception.Message });
+                }));*/
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieShop.API v1"));
             }

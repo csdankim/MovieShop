@@ -87,8 +87,9 @@ namespace MovieShop.API.Middlewares
             var message =
                 $"Exception Code: {httpContext.Response.StatusCode}, {errorModel.ExceptionMessage}, {errorModel.ExceptionStackTree}, {errorModel.InnerExceptionMessage}, {errorModel.FullName}, {errorModel.UserID}, {errorModel.Email} at {errorModel.ExceptionDateTime.ToLongDateString()}";
 
-            _logger.LogInformation(message);
-            _logger.LogCritical(message);
+            //_logger.LogInformation(message);
+            //_logger.LogCritical(message);
+            _logger.LogError(message);
 
             // redirect to error page
             httpContext.Response.Redirect("/Home/Error");
