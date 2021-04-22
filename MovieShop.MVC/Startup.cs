@@ -73,9 +73,8 @@ namespace MovieShop.MVC
         {
             if (env.IsDevelopment())
             {
-                //app.UseExceptionHandler("/Home/Error");
-                //app.UseDeveloperExceptionPage();
-                app.UseMovieShopExceptionMiddleware();
+                app.UseExceptionHandler("/Home/Error");
+                app.UseDeveloperExceptionPage();
             }
             else
             {
@@ -83,6 +82,9 @@ namespace MovieShop.MVC
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseMovieShopExceptionMiddleware();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

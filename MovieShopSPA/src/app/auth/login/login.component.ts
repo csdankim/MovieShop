@@ -33,8 +33,11 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.userLogin).subscribe(
       (response) => {
         if (response) {
-          this.route.navigate(['/'])
-        } else {
+          this.route.navigate(['/']);
+        } 
+      },
+      (error) => {
+        if (error) {
           this.invalidLogin = true;
         }
       }

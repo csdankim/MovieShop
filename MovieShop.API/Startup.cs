@@ -100,18 +100,8 @@ namespace MovieShop.API
         {
             if (env.IsDevelopment())
             {
-                app.UseMovieShopAPIExceptionMiddleware();
-                //app.UseDeveloperExceptionPage();
-
-                /*// using built-in middleware
-                // reference: https://stackoverflow.com/questions/38630076/asp-net-core-web-api-exception-handling
-                app.UseExceptionHandler(a => a.Run(async context =>
-                {
-                    var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
-                    var exception = exceptionHandlerPathFeature.Error;
-
-                    await context.Response.WriteAsJsonAsync(new { error = exception.Message });
-                }));*/
+                app.UseExceptionHandler("/Home/Error");
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieShop.API v1"));
             }
@@ -121,6 +111,17 @@ namespace MovieShop.API
                 builder.WithOrigins(Configuration.GetValue<string>("clientSPAUrl")).AllowAnyHeader().AllowAnyMethod().AllowCredentials();
             });
 
+            /*// using built-in middleware
+            // reference: https://stackoverflow.com/questions/38630076/asp-net-core-web-api-exception-handling
+            app.UseExceptionHandler(a => a.Run(async context =>
+            {
+                var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+                var exception = exceptionHandlerPathFeature.Error;
+
+                await context.Response.WriteAsJsonAsync(new { error = exception.Message });
+            }));*/
+
+            app.UseMovieShopAPIExceptionMiddleware();
             app.UseHttpsRedirection();
 
             // Serilog
