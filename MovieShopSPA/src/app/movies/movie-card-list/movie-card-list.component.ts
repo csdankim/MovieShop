@@ -21,8 +21,8 @@ export class MovieCardListComponent implements OnInit {
     this.route.paramMap.subscribe(
       params => {
         this.genreId = +params.getAll('id');
-        this.movieService.getMoviesByGenre(this.genreId).subscribe(g=>{this.movies=g; console.log(this.movies);});
-      } 
+        this.movieService.getMoviesByGenre(this.genreId).subscribe(g => { this.movies = g; console.log(this.movies); });
+      }
     );
   }
 
